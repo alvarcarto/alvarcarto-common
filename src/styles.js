@@ -49,7 +49,7 @@ const POSTER_STYLES = [
     name: 'Classic',
   },
   {
-    id: 'classicsans',
+    id: 'sans',
     allowedMapStyles: ['bw', 'gray'],
     upperCaseLabels: true,
     labels: ['header', 'smallHeader', 'text'],

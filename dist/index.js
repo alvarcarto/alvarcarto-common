@@ -171,6 +171,7 @@ function addOrUpdateLines(doc, svg, textEl) {
 
 module.exports = {
   addOrUpdateLines: addOrUpdateLines,
+  cssTransformStringToTranslates: cssTransformStringToTranslates,
   MAP_STYLES: styles.MAP_STYLES,
   POSTER_STYLES: styles.POSTER_STYLES
 };
