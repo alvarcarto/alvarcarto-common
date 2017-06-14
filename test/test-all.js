@@ -48,10 +48,31 @@ describe('POSTER_STYLES', () => {
   it('has 7 poster styles', () => {
     assert.strictEqual(common.POSTER_STYLES.length, 7);
   });
+
+  it('getPosterStyle()', () => {
+    const style = common.getPosterStyle('sharp');
+    assert.deepStrictEqual(style, {
+      id: 'sharp',
+      upperCaseLabels: true,
+      labels: ['header'],
+      name: 'Sharp',
+    });
+  });
 });
 
 describe('MAP_STYLES', () => {
   it('has 8 poster styles', () => {
     assert.strictEqual(common.MAP_STYLES.length, 8);
+  });
+
+  it('getMapStyle()', () => {
+    const style = common.getMapStyle('madang');
+    assert.deepStrictEqual(style, {
+      id: 'madang',
+      color: '#BDECB6',
+      labelColor: '#BDECB6',
+      type: 'raster',
+      name: 'Madang',
+    });
   });
 });
