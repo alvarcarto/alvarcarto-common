@@ -169,9 +169,19 @@ function addOrUpdateLines(doc, svg, textEl) {
   updateLines(textEl, leftLineEl, rightLineEl, opts);
 }
 
+function getMapStyle(id) {
+  return _.find(styles.MAP_STYLES, { id: id });
+}
+
+function getPosterStyle(id) {
+  return _.find(styles.POSTER_STYLES, { id: id });
+}
+
 module.exports = {
   addOrUpdateLines: addOrUpdateLines,
   cssTransformStringToTranslates: cssTransformStringToTranslates,
+  getMapStyle: getMapStyle,
+  getPosterStyle: getPosterStyle,
   MAP_STYLES: styles.MAP_STYLES,
   POSTER_STYLES: styles.POSTER_STYLES
 };
