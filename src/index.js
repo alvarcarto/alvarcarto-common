@@ -190,7 +190,7 @@ function changeDynamicAttributes(el, mapItem) {
   });
 
   if (labelRule) {
-    const ruleTargetEl = el.querySelector(`#${labelRule.label}`);
+    const ruleTargetEl = el.getElementById(labelRule.label);
     _.forEach(labelRule.svgAttributes, (val, key) => {
       ruleTargetEl.setAttribute(key, val);
     });

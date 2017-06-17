@@ -202,7 +202,7 @@ function changeDynamicAttributes(el, mapItem) {
   });
 
   if (labelRule) {
-    var ruleTargetEl = el.querySelector('#' + labelRule.label);
+    var ruleTargetEl = el.getElementById(labelRule.label);
     _.forEach(labelRule.svgAttributes, function (val, key) {
       ruleTargetEl.setAttribute(key, val);
     });
