@@ -157,14 +157,14 @@ function addOrUpdateLines(doc, svg, textEl, _opts = {}) {
     rightLineId: 'small-header-right-line',
   });
 
-  let leftLineEl = svg.getElementById(opts.leftLineId);
+  let leftLineEl = doc.getElementById(opts.leftLineId);
   if (!leftLineEl) {
     leftLineEl = doc.createElementNS('http://www.w3.org/2000/svg', 'path');
     svg.appendChild(leftLineEl);
   }
   leftLineEl.setAttribute('id', opts.leftLineId);
 
-  let rightLineEl = svg.getElementById(opts.rightLineId);
+  let rightLineEl = doc.getElementById(opts.rightLineId);
   if (!rightLineEl) {
     rightLineEl = doc.createElementNS('http://www.w3.org/2000/svg', 'path');
     svg.appendChild(rightLineEl);

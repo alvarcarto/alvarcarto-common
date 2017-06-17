@@ -169,14 +169,14 @@ function addOrUpdateLines(doc, svg, textEl) {
     rightLineId: 'small-header-right-line'
   });
 
-  var leftLineEl = svg.getElementById(opts.leftLineId);
+  var leftLineEl = doc.getElementById(opts.leftLineId);
   if (!leftLineEl) {
     leftLineEl = doc.createElementNS('http://www.w3.org/2000/svg', 'path');
     svg.appendChild(leftLineEl);
   }
   leftLineEl.setAttribute('id', opts.leftLineId);
 
-  var rightLineEl = svg.getElementById(opts.rightLineId);
+  var rightLineEl = doc.getElementById(opts.rightLineId);
   if (!rightLineEl) {
     rightLineEl = doc.createElementNS('http://www.w3.org/2000/svg', 'path');
     svg.appendChild(rightLineEl);
