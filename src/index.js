@@ -172,6 +172,19 @@ function addOrUpdateLines(doc, svg, textEl, _opts = {}) {
   rightLineEl.setAttribute('id', opts.rightLineId);
 
   updateLines(textEl, leftLineEl, rightLineEl, opts);
+  if (opts.debugLines) {
+    const bbox = opts.getBBoxForSvgElement(textEl);
+    const pos = getSvgElementPosition(_getFirstTspan(textEl));
+    const rect = doc.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', pos.x - (bbox.width / 2));
+    rect.setAttribute('y', pos.y - bbox.height);
+    rect.setAttribute('width', bbox.width);
+    rect.setAttribute('height', bbox.height);
+    rect.setAttribute('stroke', 'red');
+    rect.setAttribute('stroke-width', '2');
+    rect.setAttribute('fill', 'none');
+    svg.appendChild(rect);
+  }
 }
 
 const HEADER_MAPPING = {
