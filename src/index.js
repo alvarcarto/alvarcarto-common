@@ -5,6 +5,14 @@ const TRANSLATE_REGEX = /\.*translate\((.*)\)/i;
 const TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 const TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
 
+function getMapStyle(id) {
+  return _.find(styles.MAP_STYLES, { id });
+}
+
+function getPosterStyle(id) {
+  return _.find(styles.POSTER_STYLES, { id });
+}
+
 function cssTransformStringToTranslates(transformStr) {
   const obj = {
     translateX: 0,
@@ -108,10 +116,19 @@ function _getLeftLinePath(textInfo, opts) {
   return `M${x},${y} L${x - opts.lineLength},${y}`;
 }
 
+function _getFirstTspan(textNode) {
+  const tspanList = textNode.getElementsByTagName('tspan');
+  if (tspanList.length < 1) {
+    throw new Error(`Unexpected amount of tspan elements found: ${tspanList.length}`);
+  }
+
+  return tspanList.item(0);
+}
+
 function updateLines(textEl, leftEl, rightEl, opts = {}) {
   const textInfo = {
     fontSize: parseFloat(textEl.getAttribute('font-size')),
-    position: getSvgElementPosition(textEl.querySelector('tspan')),
+    position: getSvgElementPosition(_getFirstTspan(textEl)),
     bbox: opts.getBBoxForSvgElement(textEl),
   };
 
@@ -157,17 +174,33 @@ function addOrUpdateLines(doc, svg, textEl, _opts = {}) {
   updateLines(textEl, leftLineEl, rightLineEl, opts);
 }
 
-function getMapStyle(id) {
-  return _.find(styles.MAP_STYLES, { id });
-}
+const HEADER_MAPPING = {
+  header: 'labelHeader',
+  smallHeader: 'labelSmallHeader',
+  text: 'labelText',
+};
 
-function getPosterStyle(id) {
-  return _.find(styles.POSTER_STYLES, { id });
+function changeDynamicAttributes(el, mapItem) {
+  const posterLook = getPosterStyle(mapItem.posterStyle);
+
+  const labelRule = _.find(posterLook.labelRules, (rule) => {
+    const mapItemAttr = HEADER_MAPPING[rule.label];
+    const str = mapItem[mapItemAttr];
+    return str.length >= rule.minLength;
+  });
+
+  if (labelRule) {
+    const ruleTargetEl = el.querySelector(`#${labelRule.label}`);
+    _.forEach(labelRule.svgAttributes, (val, key) => {
+      ruleTargetEl.setAttribute(key, val);
+    });
+  }
 }
 
 module.exports = {
   addOrUpdateLines,
   cssTransformStringToTranslates,
+  changeDynamicAttributes,
   getMapStyle,
   getPosterStyle,
   MAP_STYLES: styles.MAP_STYLES,

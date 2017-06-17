@@ -7,6 +7,14 @@ var TRANSLATE_REGEX = /\.*translate\((.*)\)/i;
 var TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 var TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
 
+function getMapStyle(id) {
+  return _.find(styles.MAP_STYLES, { id: id });
+}
+
+function getPosterStyle(id) {
+  return _.find(styles.POSTER_STYLES, { id: id });
+}
+
 function cssTransformStringToTranslates(transformStr) {
   var obj = {
     translateX: 0,
@@ -116,12 +124,21 @@ function _getLeftLinePath(textInfo, opts) {
   return 'M' + x + ',' + y + ' L' + (x - opts.lineLength) + ',' + y;
 }
 
+function _getFirstTspan(textNode) {
+  var tspanList = textNode.getElementsByTagName('tspan');
+  if (tspanList.length < 1) {
+    throw new Error('Unexpected amount of tspan elements found: ' + tspanList.length);
+  }
+
+  return tspanList.item(0);
+}
+
 function updateLines(textEl, leftEl, rightEl) {
   var opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
   var textInfo = {
     fontSize: parseFloat(textEl.getAttribute('font-size')),
-    position: getSvgElementPosition(textEl.querySelector('tspan')),
+    position: getSvgElementPosition(_getFirstTspan(textEl)),
     bbox: opts.getBBoxForSvgElement(textEl)
   };
 
@@ -169,17 +186,33 @@ function addOrUpdateLines(doc, svg, textEl) {
   updateLines(textEl, leftLineEl, rightLineEl, opts);
 }
 
-function getMapStyle(id) {
-  return _.find(styles.MAP_STYLES, { id: id });
-}
+var HEADER_MAPPING = {
+  header: 'labelHeader',
+  smallHeader: 'labelSmallHeader',
+  text: 'labelText'
+};
 
-function getPosterStyle(id) {
-  return _.find(styles.POSTER_STYLES, { id: id });
+function changeDynamicAttributes(el, mapItem) {
+  var posterLook = getPosterStyle(mapItem.posterStyle);
+
+  var labelRule = _.find(posterLook.labelRules, function (rule) {
+    var mapItemAttr = HEADER_MAPPING[rule.label];
+    var str = mapItem[mapItemAttr];
+    return str.length >= rule.minLength;
+  });
+
+  if (labelRule) {
+    var ruleTargetEl = el.querySelector('#' + labelRule.label);
+    _.forEach(labelRule.svgAttributes, function (val, key) {
+      ruleTargetEl.setAttribute(key, val);
+    });
+  }
 }
 
 module.exports = {
   addOrUpdateLines: addOrUpdateLines,
   cssTransformStringToTranslates: cssTransformStringToTranslates,
+  changeDynamicAttributes: changeDynamicAttributes,
   getMapStyle: getMapStyle,
   getPosterStyle: getPosterStyle,
   MAP_STYLES: styles.MAP_STYLES,
