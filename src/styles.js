@@ -109,13 +109,7 @@ const POSTER_STYLES = [
     upperCaseLabels: true,
     labels: ['header'],
     name: 'Summer',
-  },
-  {
-    id: 'round',
-    upperCaseLabels: true,
-    labels: ['header'],
-    name: 'Round',
-  },
+  }
 ];
 
 const MAP_STYLES = [
