@@ -16,29 +16,29 @@ var POSTER_STYLES = [{
     label: 'header',
     minLength: 19,
     svgAttributes: {
-      'font-size': 160,
-      'letter-spacing': 20
+      'font-size': { type: 'factor', value: 0.65 },
+      'letter-spacing': { type: 'factor', value: 0.4 }
     }
   }, {
     label: 'header',
     minLength: 15,
     svgAttributes: {
-      'font-size': 180,
-      'letter-spacing': 30
+      'font-size': { type: 'factor', value: 0.75 },
+      'letter-spacing': { type: 'factor', value: 0.6 }
     }
   }, {
     label: 'header',
     minLength: 11,
     svgAttributes: {
-      'font-size': 200,
-      'letter-spacing': 40
+      'font-size': { type: 'factor', value: 0.85 },
+      'letter-spacing': { type: 'factor', value: 0.8 }
     }
   }, {
     label: 'header',
     minLength: 0,
     svgAttributes: {
-      'font-size': 240,
-      'letter-spacing': 50
+      'font-size': { type: 'factor', value: 1.0 },
+      'letter-spacing': { type: 'factor', value: 1.0 }
     }
   }],
   name: 'Classic'
@@ -53,29 +53,29 @@ var POSTER_STYLES = [{
     label: 'header',
     minLength: 19,
     svgAttributes: {
-      'font-size': 160,
-      'letter-spacing': 20
+      'font-size': { type: 'factor', value: 0.65 },
+      'letter-spacing': { type: 'factor', value: 0.4 }
     }
   }, {
     label: 'header',
     minLength: 15,
     svgAttributes: {
-      'font-size': 180,
-      'letter-spacing': 30
+      'font-size': { type: 'factor', value: 0.75 },
+      'letter-spacing': { type: 'factor', value: 0.6 }
     }
   }, {
     label: 'header',
     minLength: 11,
     svgAttributes: {
-      'font-size': 200,
-      'letter-spacing': 40
+      'font-size': { type: 'factor', value: 0.85 },
+      'letter-spacing': { type: 'factor', value: 0.8 }
     }
   }, {
     label: 'header',
     minLength: 0,
     svgAttributes: {
-      'font-size': 240,
-      'letter-spacing': 50
+      'font-size': { type: 'factor', value: 1.0 },
+      'letter-spacing': { type: 'factor', value: 1.0 }
     }
   }],
   name: 'Sans'

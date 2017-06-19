@@ -1,5 +1,7 @@
 'use strict';
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var _ = require('lodash');
 var styles = require('./styles');
 
@@ -104,24 +106,32 @@ function getSvgElementPosition(svgElem) {
   });
 }
 
-function _getRightLinePath(textInfo, opts) {
-  var position = textInfo.position,
-      bbox = textInfo.bbox,
-      fontSize = textInfo.fontSize;
-
-  var x = position.x + bbox.width / 2 + opts.paddingBetweenLineAndText;
-  var y = position.y - fontSize / 2 + (1.0 - opts.fontCapHeightRatio) * fontSize;
-  return 'M' + x + ',' + y + ' L' + (x + opts.lineLength) + ',' + y;
+function _getSvgMinSideLength(svg) {
+  var svgWidth = parseInt(svg.getAttribute('width'), 10);
+  var svgHeight = parseInt(svg.getAttribute('height'), 10);
+  return Math.min(svgWidth, svgHeight);
 }
 
-function _getLeftLinePath(textInfo, opts) {
+function _getRightLinePath(svg, textInfo, opts) {
   var position = textInfo.position,
       bbox = textInfo.bbox,
       fontSize = textInfo.fontSize;
 
-  var x = position.x - bbox.width / 2 - opts.paddingBetweenLineAndText;
+  var sideWidth = _getSvgMinSideLength(svg);
+  var x = position.x + bbox.width / 2 + opts.paddingBetweenLineAndText * sideWidth;
   var y = position.y - fontSize / 2 + (1.0 - opts.fontCapHeightRatio) * fontSize;
-  return 'M' + x + ',' + y + ' L' + (x - opts.lineLength) + ',' + y;
+  return 'M' + x + ',' + y + ' L' + (x + opts.lineLength * sideWidth) + ',' + y;
+}
+
+function _getLeftLinePath(svg, textInfo, opts) {
+  var position = textInfo.position,
+      bbox = textInfo.bbox,
+      fontSize = textInfo.fontSize;
+
+  var sideWidth = _getSvgMinSideLength(svg);
+  var x = position.x - bbox.width / 2 - opts.paddingBetweenLineAndText * sideWidth;
+  var y = position.y - fontSize / 2 + (1.0 - opts.fontCapHeightRatio) * fontSize;
+  return 'M' + x + ',' + y + ' L' + (x - opts.lineLength * sideWidth) + ',' + y;
 }
 
 function _getFirstTspan(textNode) {
@@ -133,8 +143,8 @@ function _getFirstTspan(textNode) {
   return tspanList.item(0);
 }
 
-function updateLines(textEl, leftEl, rightEl) {
-  var opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+function updateLines(svg, textEl, leftEl, rightEl) {
+  var opts = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
 
   var textInfo = {
     fontSize: parseFloat(textEl.getAttribute('font-size')),
@@ -142,8 +152,8 @@ function updateLines(textEl, leftEl, rightEl) {
     bbox: opts.getBBoxForSvgElement(textEl)
   };
 
-  leftEl.setAttribute('d', _getLeftLinePath(textInfo, opts));
-  rightEl.setAttribute('d', _getRightLinePath(textInfo, opts));
+  leftEl.setAttribute('d', _getLeftLinePath(svg, textInfo, opts));
+  rightEl.setAttribute('d', _getRightLinePath(svg, textInfo, opts));
 
   _.forEach(opts.svgAttributes, function (val, key) {
     leftEl.setAttribute(key, val);
@@ -154,7 +164,7 @@ function updateLines(textEl, leftEl, rightEl) {
 function addOrUpdateLines(doc, svg, textEl) {
   var _opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
-  var opts = _.merge(_opts, {
+  var opts = _.merge({
     // This ratio defines what is the font cap height's ratio to the font size
     // (font size is assumed to equal the bounding box height of the text)
     // Exact value could be calculated also: https://github.com/sebdesign/cap-height
@@ -163,11 +173,17 @@ function addOrUpdateLines(doc, svg, textEl) {
     // but this sounds better than a fixed value. Compared to fixed value, ratio
     // *could* work when resizing the font
     fontCapHeightRatio: 0.8,
-    paddingBetweenLineAndText: 130,
-    lineLength: 280,
+    // These values are relative values to SVG canvas width
+    paddingBetweenLineAndText: 130 / 3543,
+    lineLength: 280 / 3543,
     leftLineId: 'small-header-left-line',
-    rightLineId: 'small-header-right-line'
-  });
+    rightLineId: 'small-header-right-line',
+    svgAttributes: {
+      stroke: '#000000',
+      'stroke-width': '6px',
+      'stroke-linecap': 'square'
+    }
+  }, _opts);
 
   var leftLineEl = doc.getElementById(opts.leftLineId);
   if (!leftLineEl) {
@@ -183,7 +199,7 @@ function addOrUpdateLines(doc, svg, textEl) {
   }
   rightLineEl.setAttribute('id', opts.rightLineId);
 
-  updateLines(textEl, leftLineEl, rightLineEl, opts);
+  updateLines(svg, textEl, leftLineEl, rightLineEl, opts);
   if (opts.debugLines) {
     var bbox = opts.getBBoxForSvgElement(textEl);
     var pos = getSvgElementPosition(_getFirstTspan(textEl));
@@ -216,15 +232,41 @@ function changeDynamicAttributes(el, mapItem) {
 
   if (labelRule) {
     var ruleTargetEl = el.getElementById(labelRule.label);
+    if (!ruleTargetEl.originalAttributes) {
+      ruleTargetEl.originalAttributes = _.reduce(labelRule.svgAttributes, function (memo, val, key) {
+        return _.extend({}, memo, _defineProperty({}, key, ruleTargetEl.getAttribute(key)));
+      }, {});
+    }
+
     _.forEach(labelRule.svgAttributes, function (val, key) {
-      ruleTargetEl.setAttribute(key, val);
+      if (_.isPlainObject(val) && val.type === 'factor') {
+        var originalVal = parseFloat(ruleTargetEl.originalAttributes[key]);
+        var newVal = val.value * originalVal;
+        ruleTargetEl.setAttribute(key, newVal);
+      } else {
+        ruleTargetEl.setAttribute(key, val);
+      }
     });
+  }
+}
+
+function posterSizeToMiddleLineStrokeWidth(size) {
+  switch (size) {
+    case '30x40cm':
+      return 6;
+    case '50x70cm':
+      return 9;
+    case '70x100cm':
+      return 12;
+    default:
+      return 6;
   }
 }
 
 module.exports = {
   addOrUpdateLines: addOrUpdateLines,
   cssTransformStringToTranslates: cssTransformStringToTranslates,
+  posterSizeToMiddleLineStrokeWidth: posterSizeToMiddleLineStrokeWidth,
   changeDynamicAttributes: changeDynamicAttributes,
   getMapStyle: getMapStyle,
   getPosterStyle: getPosterStyle,
