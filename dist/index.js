@@ -174,7 +174,7 @@ function addOrUpdateLines(doc, svg, textEl) {
     // *could* work when resizing the font
     fontCapHeightRatio: 0.8,
     // These values are relative values to SVG canvas width
-    paddingBetweenLineAndText: 130 / 3543,
+    paddingBetweenLineAndText: 150 / 3543,
     lineLength: 280 / 3543,
     leftLineId: 'small-header-left-line',
     rightLineId: 'small-header-right-line',
