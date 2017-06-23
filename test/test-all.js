@@ -45,8 +45,8 @@ describe('cssTransformStringToTranslates', () => {
 });
 
 describe('POSTER_STYLES', () => {
-  it('has 6 poster styles', () => {
-    assert.strictEqual(common.POSTER_STYLES.length, 6);
+  it('has 7 poster styles', () => {
+    assert.strictEqual(common.POSTER_STYLES.length, 7);
   });
 
   it('getPosterStyle()', () => {
