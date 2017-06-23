@@ -69,8 +69,8 @@ describe('MAP_STYLES', () => {
     const style = common.getMapStyle('madang');
     assert.deepStrictEqual(style, {
       id: 'madang',
-      color: '#BDECB6',
-      labelColor: '#BDECB6',
+      color: '#a7e19e',
+      labelColor: '#a7e19e',
       type: 'raster',
       name: 'Madang',
     });
