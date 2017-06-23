@@ -44,7 +44,7 @@ const POSTER_STYLES = [
           'font-size': { type: 'factor', value: 1.0 },
           'letter-spacing': { type: 'factor', value: 1.0 },
         },
-      }
+      },
     ],
     name: 'Classic',
   },
@@ -87,7 +87,7 @@ const POSTER_STYLES = [
           'font-size': { type: 'factor', value: 1.0 },
           'letter-spacing': { type: 'factor', value: 1.0 },
         },
-      }
+      },
     ],
     name: 'Sans',
   },
@@ -109,7 +109,13 @@ const POSTER_STYLES = [
     upperCaseLabels: true,
     labels: ['header'],
     name: 'Summer',
-  }
+  },
+  {
+    id: 'round',
+    upperCaseLabels: true,
+    labels: ['header'],
+    name: 'Round',
+  },
 ];
 
 const MAP_STYLES = [
@@ -168,7 +174,7 @@ const MAP_STYLES = [
     labelColor: '#BDECB6',
     type: 'raster',
     name: 'Madang',
-  }
+  },
 ];
 
 module.exports = {

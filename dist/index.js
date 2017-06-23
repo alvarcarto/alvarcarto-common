@@ -10,11 +10,19 @@ var TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 var TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
 
 function getMapStyle(id) {
-  return _.find(styles.MAP_STYLES, { id: id });
+  var found = _.find(styles.MAP_STYLES, { id: id });
+  if (!found) {
+    throw new Error('No such map style: ' + id);
+  }
+  return found;
 }
 
 function getPosterStyle(id) {
-  return _.find(styles.POSTER_STYLES, { id: id });
+  var found = _.find(styles.POSTER_STYLES, { id: id });
+  if (!found) {
+    throw new Error('No such poster style: ' + id);
+  }
+  return found;
 }
 
 function cssTransformStringToTranslates(transformStr) {
