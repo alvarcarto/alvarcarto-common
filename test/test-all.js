@@ -76,3 +76,15 @@ describe('MAP_STYLES', () => {
     });
   });
 });
+
+describe('POSTER_SIZES', () => {
+  it('has 3 poster sizes', () => {
+    assert.strictEqual(common.POSTER_SIZES.length, 3);
+  });
+});
+
+describe('POSTER_ORIENTATIONS', () => {
+  it('has 2 poster orientations', () => {
+    assert.strictEqual(common.POSTER_ORIENTATIONS.length, 2);
+  });
+});
