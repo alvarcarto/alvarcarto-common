@@ -4,6 +4,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var _ = require('lodash');
 var styles = require('./styles');
+var enums = require('./enums');
 
 var TRANSLATE_REGEX = /\.*translate\((.*)\)/i;
 var TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
@@ -279,5 +280,7 @@ module.exports = {
   getMapStyle: getMapStyle,
   getPosterStyle: getPosterStyle,
   MAP_STYLES: styles.MAP_STYLES,
-  POSTER_STYLES: styles.POSTER_STYLES
+  POSTER_STYLES: styles.POSTER_STYLES,
+  POSTER_SIZES: enums.POSTER_SIZES,
+  POSTER_ORIENTATIONS: enums.POSTER_ORIENTATIONS
 };
