@@ -31,7 +31,10 @@ function cssTransformStringToTranslates(transformStr) {
   const translateExec = TRANSLATE_REGEX.exec(transformStr);
   if (translateExec && _.isString(translateExec[1])) {
     const translate = translateExec[1];
-    const parts = translate.split(',');
+    // Might be e.g. translate(10, 20) or translate(10 20) (IE)
+    // parseFloat stops parsing to a comma, so splitting with
+    // space should be enough
+    const parts = translate.split(' ');
 
     if (_.isArray(parts) && _.isString(parts[0])) {
       obj.translateX = parseFloat(parts[0]);
