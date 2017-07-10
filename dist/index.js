@@ -1,7 +1,5 @@
 'use strict';
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var _ = require('lodash');
 var styles = require('./styles');
 var enums = require('./enums');
@@ -244,15 +242,18 @@ function changeDynamicAttributes(el, mapItem) {
 
   if (labelRule) {
     var ruleTargetEl = el.getElementById(labelRule.label);
-    if (!ruleTargetEl.originalAttributes) {
-      ruleTargetEl.originalAttributes = _.reduce(labelRule.svgAttributes, function (memo, val, key) {
-        return _.extend({}, memo, _defineProperty({}, key, ruleTargetEl.getAttribute(key)));
-      }, {});
+    if (ruleTargetEl.getAttribute('originals-saved') !== 'true') {
+      _.forEach(labelRule.svgAttributes, function (val, key) {
+        var newVal = ruleTargetEl.getAttribute(key);
+        ruleTargetEl.setAttribute('original-' + key, newVal);
+      });
+
+      ruleTargetEl.setAttribute('originals-saved', 'true');
     }
 
     _.forEach(labelRule.svgAttributes, function (val, key) {
       if (_.isPlainObject(val) && val.type === 'factor') {
-        var originalVal = parseFloat(ruleTargetEl.originalAttributes[key]);
+        var originalVal = parseFloat(ruleTargetEl.getAttribute('original-' + key));
         var newVal = val.value * originalVal;
         ruleTargetEl.setAttribute(key, newVal);
       } else {

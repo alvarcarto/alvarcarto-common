@@ -230,15 +230,18 @@ function changeDynamicAttributes(el, mapItem) {
 
   if (labelRule) {
     const ruleTargetEl = el.getElementById(labelRule.label);
-    if (!ruleTargetEl.originalAttributes) {
-      ruleTargetEl.originalAttributes = _.reduce(labelRule.svgAttributes, (memo, val, key) => {
-        return _.extend({}, memo, { [key]: ruleTargetEl.getAttribute(key) });
-      }, {});
+    if (ruleTargetEl.getAttribute('originals-saved') !== 'true') {
+      _.forEach(labelRule.svgAttributes, (val, key) => {
+        const newVal = ruleTargetEl.getAttribute(key);
+        ruleTargetEl.setAttribute(`original-${key}`, newVal);
+      });
+
+      ruleTargetEl.setAttribute('originals-saved', 'true');
     }
 
     _.forEach(labelRule.svgAttributes, (val, key) => {
       if (_.isPlainObject(val) && val.type === 'factor') {
-        const originalVal = parseFloat(ruleTargetEl.originalAttributes[key]);
+        const originalVal = parseFloat(ruleTargetEl.getAttribute(`original-${key}`));
         const newVal = val.value * originalVal;
         ruleTargetEl.setAttribute(key, newVal);
       } else {
