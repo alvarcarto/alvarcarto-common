@@ -104,26 +104,26 @@ var POSTER_STYLES = [{
 
 var MAP_STYLES = [{
   id: 'bw',
-  color: '#fff',
-  labelColor: '#000',
+  color: '#FFFFFF',
+  labelColor: '#000000',
   type: 'raster',
   name: 'White'
 }, {
   id: 'gray',
-  color: '#ddd',
-  labelColor: '#000',
+  color: '#DDDDDD',
+  labelColor: '#000000',
   type: 'raster',
   name: 'Gray'
 }, {
   id: 'black',
-  color: '#000',
-  labelColor: '#000',
+  color: '#000000',
+  labelColor: '#000000',
   type: 'raster',
   name: 'Black'
 }, {
   id: 'petrol',
-  color: '#4b7b8f',
-  labelColor: '#4b7b8f',
+  color: '#4B7B8F',
+  labelColor: '#4B7B8F',
   type: 'raster',
   name: 'Petrol'
 }, {
@@ -146,8 +146,8 @@ var MAP_STYLES = [{
   name: 'Copper'
 }, {
   id: 'madang',
-  color: '#a7e19e',
-  labelColor: '#a7e19e',
+  color: '#A7E19E',
+  labelColor: '#A7E19E',
   type: 'raster',
   name: 'Madang'
 }];
