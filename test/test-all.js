@@ -88,3 +88,18 @@ describe('POSTER_ORIENTATIONS', () => {
     assert.strictEqual(common.POSTER_ORIENTATIONS.length, 2);
   });
 });
+
+describe('createProductId', () => {
+  it('basic', () => {
+    const id = common.createProductId({
+      posterStyle: 'sharp',
+      mapStyle: 'copper',
+      orientation: 'portrait',
+      size: '30x40cm',
+      cityId: '28.801L-81.273',
+    });
+
+    assert.strictEqual(id, '0/SHARP/DE8E65/P/30X40CM/0/28.801L-81.273');
+  });
+});
+

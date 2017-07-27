@@ -264,6 +264,21 @@ function posterSizeToMiddleLineStrokeWidth(size) {
   }
 }
 
+function createProductId(posterInfo) {
+  const mapStyle = getMapStyle(posterInfo.mapStyle);
+
+  // 0/SHARP/FFFFFF/50X70C/0/60.169/24.935
+  return [
+    0,  // ID version 0
+    posterInfo.posterStyle.toUpperCase(),
+    _.trimStart(mapStyle.color, '#').toUpperCase(),
+    posterInfo.orientation[0].toUpperCase(),
+    posterInfo.size.toUpperCase(),
+    0, // Paper weight, 0 -> Printmotor's default
+    posterInfo.cityId,
+  ].join('/');
+}
+
 module.exports = {
   addOrUpdateLines,
   cssTransformStringToTranslates,
@@ -271,6 +286,7 @@ module.exports = {
   changeDynamicAttributes,
   getMapStyle,
   getPosterStyle,
+  createProductId,
   MAP_STYLES: styles.MAP_STYLES,
   POSTER_STYLES: styles.POSTER_STYLES,
   POSTER_SIZES: enums.POSTER_SIZES,
