@@ -171,6 +171,11 @@ function updateLines(svg, textEl, leftEl, rightEl) {
   });
 }
 
+function removeLines(leftEl, rightEl) {
+  leftEl.parentNode.removeChild(leftEl);
+  rightEl.parentNode.removeChild(rightEl);
+}
+
 function addOrUpdateLines(doc, svg, textEl) {
   var _opts = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
@@ -208,6 +213,11 @@ function addOrUpdateLines(doc, svg, textEl) {
     svg.appendChild(rightLineEl);
   }
   rightLineEl.setAttribute('id', opts.rightLineId);
+
+  var text = _getFirstTspan(textEl).textContent;
+  if (!text || text === ' ') {
+    return removeLines(leftLineEl, rightLineEl);
+  }
 
   updateLines(svg, textEl, leftLineEl, rightLineEl, opts);
   if (opts.debugLines) {

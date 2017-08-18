@@ -161,6 +161,11 @@ function updateLines(svg, textEl, leftEl, rightEl, opts = {}) {
   });
 }
 
+function removeLines(leftEl, rightEl) {
+  leftEl.parentNode.removeChild(leftEl);
+  rightEl.parentNode.removeChild(rightEl);
+}
+
 function addOrUpdateLines(doc, svg, textEl, _opts = {}) {
   const opts = _.merge({
     // This ratio defines what is the font cap height's ratio to the font size
@@ -196,6 +201,11 @@ function addOrUpdateLines(doc, svg, textEl, _opts = {}) {
     svg.appendChild(rightLineEl);
   }
   rightLineEl.setAttribute('id', opts.rightLineId);
+
+  const text = _getFirstTspan(textEl).textContent;
+  if (!text || text === ' ') {
+    return removeLines(leftLineEl, rightLineEl);
+  }
 
   updateLines(svg, textEl, leftLineEl, rightLineEl, opts);
   if (opts.debugLines) {
