@@ -155,18 +155,18 @@ const MAP_STYLES = [
     name: 'Petrol',
   },
   {
-    id: 'marshmellow',
-    color: '#FFB8D4',
-    labelColor: '#FFB8D4',
-    type: 'raster',
-    name: 'Marshmellow',
-  },
-  {
     id: 'iceberg',
     color: '#94D5E0',
     labelColor: '#94D5E0',
     type: 'raster',
     name: 'Iceberg',
+  },
+  {
+    id: 'marshmellow',
+    color: '#FFB8D4',
+    labelColor: '#FFB8D4',
+    type: 'raster',
+    name: 'Marshmellow',
   },
   {
     id: 'madang',
