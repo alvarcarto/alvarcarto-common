@@ -141,18 +141,18 @@ const MAP_STYLES = [
     name: 'Black',
   },
   {
+    id: 'copper',
+    color: '#DE8E65',
+    labelColor: '#DE8E65',
+    type: 'raster',
+    name: 'Copper',
+  },
+  {
     id: 'petrol',
     color: '#4B7B8F',
     labelColor: '#4B7B8F',
     type: 'raster',
     name: 'Petrol',
-  },
-  {
-    id: 'iceberg',
-    color: '#94D5E0',
-    labelColor: '#94D5E0',
-    type: 'raster',
-    name: 'Iceberg',
   },
   {
     id: 'marshmellow',
@@ -162,11 +162,11 @@ const MAP_STYLES = [
     name: 'Marshmellow',
   },
   {
-    id: 'copper',
-    color: '#DE8E65',
-    labelColor: '#DE8E65',
+    id: 'iceberg',
+    color: '#94D5E0',
+    labelColor: '#94D5E0',
     type: 'raster',
-    name: 'Copper',
+    name: 'Iceberg',
   },
   {
     id: 'madang',
