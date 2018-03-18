@@ -141,13 +141,6 @@ const MAP_STYLES = [
     name: 'Black',
   },
   {
-    id: 'sunset',
-    color: '#fb916d',
-    labelColor: '#000000',
-    type: 'raster',
-    name: 'Sunset',
-  },
-  {
     id: 'copper',
     color: '#DE8E65',
     labelColor: '#DE8E65',
@@ -181,6 +174,13 @@ const MAP_STYLES = [
     labelColor: '#A7E19E',
     type: 'raster',
     name: 'Madang',
+  },
+  {
+    id: 'sunset',
+    color: '#fb916d',
+    labelColor: '#000000',
+    type: 'raster',
+    name: 'Sunset',
   },
 ];
 
