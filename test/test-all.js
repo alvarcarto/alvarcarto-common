@@ -61,8 +61,8 @@ describe('POSTER_STYLES', () => {
 });
 
 describe('MAP_STYLES', () => {
-  it('has 8 poster styles', () => {
-    assert.strictEqual(common.MAP_STYLES.length, 8);
+  it('has 9 map styles', () => {
+    assert.strictEqual(common.MAP_STYLES.length, 9);
   });
 
   it('getMapStyle()', () => {

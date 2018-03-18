@@ -93,7 +93,7 @@ const POSTER_STYLES = [
   },
   {
     id: 'bw',
-    allowedMapStyles: ['bw', 'gray', 'black'],
+    allowedMapStyles: ['bw', 'gray', 'black', 'sunset'],
     upperCaseLabels: true,
     labels: ['header', 'smallHeader', 'text'],
     name: 'Modern',
@@ -139,6 +139,13 @@ const MAP_STYLES = [
     labelColor: '#000000',
     type: 'raster',
     name: 'Black',
+  },
+  {
+    id: 'sunset',
+    color: '#fb916d',
+    labelColor: '#000000',
+    type: 'raster',
+    name: 'Sunset',
   },
   {
     id: 'copper',
