@@ -175,13 +175,6 @@ const MAP_STYLES = [
     type: 'raster',
     name: 'Madang',
   },
-  {
-    id: 'sunset',
-    color: '#fb916d',
-    labelColor: '#000000',
-    type: 'raster',
-    name: 'Sunset',
-  },
 ];
 
 module.exports = {
