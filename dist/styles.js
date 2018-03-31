@@ -150,12 +150,6 @@ var MAP_STYLES = [{
   labelColor: '#A7E19E',
   type: 'raster',
   name: 'Madang'
-}, {
-  id: 'sunset',
-  color: '#fb916d',
-  labelColor: '#000000',
-  type: 'raster',
-  name: 'Sunset'
 }];
 
 module.exports = {
