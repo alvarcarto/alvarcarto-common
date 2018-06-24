@@ -141,6 +141,13 @@ const MAP_STYLES = [
     name: 'Black',
   },
   {
+    id: 'contrast-black',
+    color: '#000000',
+    labelColor: '#000000',
+    type: 'raster',
+    name: 'Contrast Black',
+  },
+  {
     id: 'copper',
     color: '#DE8E65',
     labelColor: '#DE8E65',
