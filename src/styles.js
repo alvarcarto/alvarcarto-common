@@ -182,6 +182,13 @@ const MAP_STYLES = [
     type: 'raster',
     name: 'Madang',
   },
+  {
+    id: 'contrast-black',
+    color: '#000',
+    labelColor: '#000',
+    type: 'raster',
+    name: 'Contrast black (for golden maps)',
+  },
 ];
 
 module.exports = {
