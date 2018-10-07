@@ -78,8 +78,8 @@ describe('MAP_STYLES', () => {
 });
 
 describe('POSTER_SIZES', () => {
-  it('has 3 poster sizes', () => {
-    assert.strictEqual(common.POSTER_SIZES.length, 3);
+  it('has 6 poster sizes', () => {
+    assert.strictEqual(common.POSTER_SIZES.length, 6);
   });
 });
 
