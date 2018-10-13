@@ -8,6 +8,22 @@ var TRANSLATE_REGEX = /\.*translate\((.*)\)/i;
 var TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 var TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
 
+function getPosterSize(id) {
+  var found = _.find(enums.POSTER_SIZES, { id: id });
+  if (!found) {
+    throw new Error('No such poster size: ' + id);
+  }
+  return found;
+}
+
+function getPosterSizeType(id) {
+  var found = _.find(enums.POSTER_SIZE_TYPES, { id: id });
+  if (!found) {
+    throw new Error('No such poster size type: ' + id);
+  }
+  return found;
+}
+
 function getMapStyle(id) {
   var found = _.find(styles.MAP_STYLES, { id: id });
   if (!found) {
@@ -308,9 +324,12 @@ module.exports = {
   changeDynamicAttributes: changeDynamicAttributes,
   getMapStyle: getMapStyle,
   getPosterStyle: getPosterStyle,
+  getPosterSizeType: getPosterSizeType,
+  getPosterSize: getPosterSize,
   createProductId: createProductId,
   MAP_STYLES: styles.MAP_STYLES,
   POSTER_STYLES: styles.POSTER_STYLES,
   POSTER_SIZES: enums.POSTER_SIZES,
+  POSTER_SIZE_TYPES: enums.POSTER_SIZE_TYPES,
   POSTER_ORIENTATIONS: enums.POSTER_ORIENTATIONS
 };

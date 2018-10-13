@@ -81,6 +81,28 @@ describe('POSTER_SIZES', () => {
   it('has 6 poster sizes', () => {
     assert.strictEqual(common.POSTER_SIZES.length, 6);
   });
+
+  it('getPosterSize should return correct size', () => {
+    const size = common.getPosterSize('12x18inch');
+    assert.deepStrictEqual(size, {
+      id: '12x18inch',
+      type: 'inch',
+      label: '12 x 18 inch',
+    });
+  });
+
+  it('has 2 poster size types', () => {
+    assert.strictEqual(common.POSTER_SIZE_TYPES.length, 2);
+  });
+
+  it('getPosterSizeType should return correct size type', () => {
+    const size = common.getPosterSizeType('inch');
+    assert.deepStrictEqual(size, {
+      id: 'inch',
+      label: 'US',
+      description: 'Inch sizes',
+    });
+  });
 });
 
 describe('POSTER_ORIENTATIONS', () => {

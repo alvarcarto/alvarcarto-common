@@ -6,6 +6,22 @@ const TRANSLATE_REGEX = /\.*translate\((.*)\)/i;
 const TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 const TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
 
+function getPosterSize(id) {
+  const found = _.find(enums.POSTER_SIZES, { id });
+  if (!found) {
+    throw new Error(`No such poster size: ${id}`);
+  }
+  return found;
+}
+
+function getPosterSizeType(id) {
+  const found = _.find(enums.POSTER_SIZE_TYPES, { id });
+  if (!found) {
+    throw new Error(`No such poster size type: ${id}`);
+  }
+  return found;
+}
+
 function getMapStyle(id) {
   const found = _.find(styles.MAP_STYLES, { id });
   if (!found) {
@@ -302,9 +318,12 @@ module.exports = {
   changeDynamicAttributes,
   getMapStyle,
   getPosterStyle,
+  getPosterSizeType,
+  getPosterSize,
   createProductId,
   MAP_STYLES: styles.MAP_STYLES,
   POSTER_STYLES: styles.POSTER_STYLES,
   POSTER_SIZES: enums.POSTER_SIZES,
+  POSTER_SIZE_TYPES: enums.POSTER_SIZE_TYPES,
   POSTER_ORIENTATIONS: enums.POSTER_ORIENTATIONS,
 };
