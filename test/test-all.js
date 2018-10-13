@@ -88,6 +88,7 @@ describe('POSTER_SIZES', () => {
       id: '12x18inch',
       type: 'inch',
       label: '12 x 18 inch',
+      physicalDimensions: { width: 12, height: 18, unit: 'inch' },
     });
   });
 
@@ -101,6 +102,32 @@ describe('POSTER_SIZES', () => {
       id: 'inch',
       label: 'US',
       description: 'Inch sizes',
+    });
+  });
+
+  it('findClosestSizeForOtherSizeType should return correct size', () => {
+    const newSize = common.findClosestSizeForOtherSizeType('30x40cm', 'inch');
+    assert.deepStrictEqual(newSize, {
+      id: '12x18inch',
+      type: 'inch',
+      label: '12 x 18 inch',
+      physicalDimensions: { width: 12, height: 18, unit: 'inch' },
+    });
+
+    const newSize2 = common.findClosestSizeForOtherSizeType('50x70cm', 'inch');
+    assert.deepStrictEqual(newSize2, {
+      id: '18x24inch',
+      type: 'inch',
+      label: '18 x 24 inch',
+      physicalDimensions: { width: 18, height: 24, unit: 'inch' },
+    });
+
+    const newSize3 = common.findClosestSizeForOtherSizeType('70x100cm', 'inch');
+    assert.deepStrictEqual(newSize3, {
+      id: '24x36inch',
+      type: 'inch',
+      label: '24 x 36 inch',
+      physicalDimensions: { width: 24, height: 36, unit: 'inch' },
     });
   });
 });

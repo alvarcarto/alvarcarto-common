@@ -7,6 +7,7 @@ var enums = require('./enums');
 var TRANSLATE_REGEX = /\.*translate\((.*)\)/i;
 var TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 var TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
+var INCH_IN_CM = 2.54;
 
 function getPosterSize(id) {
   var found = _.find(enums.POSTER_SIZES, { id: id });
@@ -38,6 +39,44 @@ function getPosterStyle(id) {
     throw new Error('No such poster style: ' + id);
   }
   return found;
+}
+
+function getPosterPhysicalDimensionsInCm(sizeId) {
+  var size = getPosterSize(sizeId);
+  var width = size.physicalDimensions.width;
+  var height = size.physicalDimensions.height;
+
+  if (size.type === 'cm') {
+    return {
+      width: width,
+      height: height
+    };
+  }
+
+  return {
+    width: width * INCH_IN_CM,
+    height: height * INCH_IN_CM
+  };
+}
+
+function findClosestSizeForOtherSizeType(currentSizeId, newSizeType) {
+  var currentSize = getPosterSize(currentSizeId);
+  if (currentSize.type === newSizeType) {
+    return currentSize;
+  }
+
+  var currentDimensions = getPosterPhysicalDimensionsInCm(currentSizeId);
+  var relevantPosterSizes = _.filter(enums.POSTER_SIZES, function (size) {
+    return size.type === newSizeType;
+  });
+  var closest = _.minBy(relevantPosterSizes, function (size) {
+    var comparisonDimensions = getPosterPhysicalDimensionsInCm(size.id);
+    var widthDiff = Math.abs(comparisonDimensions.width - currentDimensions.width);
+    var heightDiff = Math.abs(comparisonDimensions.height - currentDimensions.height);
+    return widthDiff + heightDiff;
+  });
+
+  return closest;
 }
 
 function cssTransformStringToTranslates(transformStr) {
@@ -326,6 +365,7 @@ module.exports = {
   getPosterStyle: getPosterStyle,
   getPosterSizeType: getPosterSizeType,
   getPosterSize: getPosterSize,
+  findClosestSizeForOtherSizeType: findClosestSizeForOtherSizeType,
   createProductId: createProductId,
   MAP_STYLES: styles.MAP_STYLES,
   POSTER_STYLES: styles.POSTER_STYLES,

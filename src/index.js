@@ -5,6 +5,7 @@ const enums = require('./enums');
 const TRANSLATE_REGEX = /\.*translate\((.*)\)/i;
 const TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 const TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
+const INCH_IN_CM = 2.54;
 
 function getPosterSize(id) {
   const found = _.find(enums.POSTER_SIZES, { id });
@@ -36,6 +37,42 @@ function getPosterStyle(id) {
     throw new Error(`No such poster style: ${id}`);
   }
   return found;
+}
+
+function getPosterPhysicalDimensionsInCm(sizeId) {
+  const size = getPosterSize(sizeId);
+  const width = size.physicalDimensions.width;
+  const height = size.physicalDimensions.height;
+
+  if (size.type === 'cm') {
+    return {
+      width,
+      height,
+    };
+  }
+
+  return {
+    width: width * INCH_IN_CM,
+    height: height * INCH_IN_CM,
+  };
+}
+
+function findClosestSizeForOtherSizeType(currentSizeId, newSizeType) {
+  const currentSize = getPosterSize(currentSizeId);
+  if (currentSize.type === newSizeType) {
+    return currentSize;
+  }
+
+  const currentDimensions = getPosterPhysicalDimensionsInCm(currentSizeId);
+  const relevantPosterSizes = _.filter(enums.POSTER_SIZES, size => size.type === newSizeType);
+  const closest = _.minBy(relevantPosterSizes, (size) => {
+    const comparisonDimensions = getPosterPhysicalDimensionsInCm(size.id);
+    const widthDiff = Math.abs(comparisonDimensions.width - currentDimensions.width);
+    const heightDiff = Math.abs(comparisonDimensions.height - currentDimensions.height);
+    return widthDiff + heightDiff;
+  });
+
+  return closest;
 }
 
 function cssTransformStringToTranslates(transformStr) {
@@ -320,6 +357,7 @@ module.exports = {
   getPosterStyle,
   getPosterSizeType,
   getPosterSize,
+  findClosestSizeForOtherSizeType,
   createProductId,
   MAP_STYLES: styles.MAP_STYLES,
   POSTER_STYLES: styles.POSTER_STYLES,
