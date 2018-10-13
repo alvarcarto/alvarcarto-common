@@ -269,6 +269,12 @@ function posterSizeToMiddleLineStrokeWidth(size) {
       return 9;
     case '70x100cm':
       return 12;
+    case '12x18inch':
+      return 6;
+    case '18x24inch':
+      return 9;
+    case '24x36inch':
+      return 12;
     default:
       return 6;
   }
