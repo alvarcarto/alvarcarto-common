@@ -32,7 +32,7 @@ var POSTER_SIZES = [{
   physicalDimensions: { width: 24, height: 36, unit: 'inch' }
 }];
 
-var POSTER_SIZE_TYPES = [{ id: 'cm', label: 'Europe', description: 'Metric sizes' }, { id: 'inch', label: 'US', description: 'Inch sizes' }];
+var POSTER_SIZE_TYPES = [{ id: 'cm', label: 'Europe (cm)', description: 'Metric sizes' }, { id: 'inch', label: 'US (inch)', description: 'Inch sizes' }];
 
 var POSTER_ORIENTATIONS = [{ id: 'portrait' }, { id: 'landscape' }];
 

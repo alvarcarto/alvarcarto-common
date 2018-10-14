@@ -38,8 +38,8 @@ const POSTER_SIZES = [
 ];
 
 const POSTER_SIZE_TYPES = [
-  { id: 'cm', label: 'Europe', description: 'Metric sizes' },
-  { id: 'inch', label: 'US', description: 'Inch sizes' },
+  { id: 'cm', label: 'Europe (cm)', description: 'Metric sizes' },
+  { id: 'inch', label: 'US (inch)', description: 'Inch sizes' },
 ];
 
 const POSTER_ORIENTATIONS = [

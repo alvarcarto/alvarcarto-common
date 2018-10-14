@@ -123,7 +123,7 @@ describe('POSTER_SIZES', () => {
     const size = common.getPosterSizeType('inch');
     assert.deepStrictEqual(size, {
       id: 'inch',
-      label: 'US',
+      label: 'US (inch)',
       description: 'Inch sizes',
     });
   });
