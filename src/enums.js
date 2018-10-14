@@ -20,19 +20,19 @@ const POSTER_SIZES = [
   {
     type: 'inch',
     id: '12x18inch',
-    label: '12 x 18 inch',
+    label: '12 x 18"',
     physicalDimensions: { width: 12, height: 18, unit: 'inch' },
   },
   {
     type: 'inch',
     id: '18x24inch',
-    label: '18 x 24 inch',
+    label: '18 x 24"',
     physicalDimensions: { width: 18, height: 24, unit: 'inch' },
   },
   {
     type: 'inch',
     id: '24x36inch',
-    label: '24 x 36 inch',
+    label: '24 x 36"',
     physicalDimensions: { width: 24, height: 36, unit: 'inch' },
   },
 ];

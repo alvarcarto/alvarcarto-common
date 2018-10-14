@@ -87,7 +87,7 @@ describe('POSTER_SIZES', () => {
     assert.deepStrictEqual(size, {
       id: '12x18inch',
       type: 'inch',
-      label: '12 x 18 inch',
+      label: '12 x 18"',
       physicalDimensions: { width: 12, height: 18, unit: 'inch' },
     });
   });
@@ -110,7 +110,7 @@ describe('POSTER_SIZES', () => {
     assert.deepStrictEqual(newSize, {
       id: '12x18inch',
       type: 'inch',
-      label: '12 x 18 inch',
+      label: '12 x 18"',
       physicalDimensions: { width: 12, height: 18, unit: 'inch' },
     });
 
@@ -118,7 +118,7 @@ describe('POSTER_SIZES', () => {
     assert.deepStrictEqual(newSize2, {
       id: '18x24inch',
       type: 'inch',
-      label: '18 x 24 inch',
+      label: '18 x 24"',
       physicalDimensions: { width: 18, height: 24, unit: 'inch' },
     });
 
@@ -126,7 +126,7 @@ describe('POSTER_SIZES', () => {
     assert.deepStrictEqual(newSize3, {
       id: '24x36inch',
       type: 'inch',
-      label: '24 x 36 inch',
+      label: '24 x 36"',
       physicalDimensions: { width: 24, height: 36, unit: 'inch' },
     });
 
