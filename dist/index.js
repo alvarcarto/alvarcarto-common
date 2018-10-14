@@ -41,22 +41,38 @@ function getPosterStyle(id) {
   return found;
 }
 
-function getPosterPhysicalDimensionsInCm(sizeId) {
+function resolveOrientation(dimensions, orientation) {
+  if (orientation === 'landscape') {
+    return _.merge({}, dimensions, {
+      width: dimensions.height,
+      height: dimensions.width
+    });
+  }
+
+  return dimensions;
+}
+
+function getPosterPhysicalDimensionsInCm(sizeId, orientation) {
   var size = getPosterSize(sizeId);
   var width = size.physicalDimensions.width;
   var height = size.physicalDimensions.height;
 
   if (size.type === 'cm') {
-    return {
+    return resolveOrientation({
       width: width,
       height: height
-    };
+    }, orientation);
   }
 
-  return {
+  return resolveOrientation({
     width: width * INCH_IN_CM,
     height: height * INCH_IN_CM
-  };
+  }, orientation);
+}
+
+function getPosterPhysicalDimensions(sizeId, orientation) {
+  var dimensions = getPosterSize(sizeId).physicalDimensions;
+  return resolveOrientation(dimensions, orientation);
 }
 
 function findClosestSizeForOtherSizeType(currentSizeId, newSizeType) {
@@ -65,12 +81,13 @@ function findClosestSizeForOtherSizeType(currentSizeId, newSizeType) {
     return currentSize;
   }
 
-  var currentDimensions = getPosterPhysicalDimensionsInCm(currentSizeId);
+  // The default dimensions are in portrait mode
+  var currentDimensions = getPosterPhysicalDimensionsInCm(currentSizeId, 'portrait');
   var relevantPosterSizes = _.filter(enums.POSTER_SIZES, function (size) {
     return size.type === newSizeType;
   });
   var closest = _.minBy(relevantPosterSizes, function (size) {
-    var comparisonDimensions = getPosterPhysicalDimensionsInCm(size.id);
+    var comparisonDimensions = getPosterPhysicalDimensionsInCm(size.id, 'portrait');
     var widthDiff = Math.abs(comparisonDimensions.width - currentDimensions.width);
     var heightDiff = Math.abs(comparisonDimensions.height - currentDimensions.height);
     return widthDiff + heightDiff;
@@ -365,6 +382,7 @@ module.exports = {
   getPosterStyle: getPosterStyle,
   getPosterSizeType: getPosterSizeType,
   getPosterSize: getPosterSize,
+  getPosterPhysicalDimensions: getPosterPhysicalDimensions,
   getPosterPhysicalDimensionsInCm: getPosterPhysicalDimensionsInCm,
   findClosestSizeForOtherSizeType: findClosestSizeForOtherSizeType,
   createProductId: createProductId,

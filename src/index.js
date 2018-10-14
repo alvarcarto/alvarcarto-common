@@ -39,22 +39,38 @@ function getPosterStyle(id) {
   return found;
 }
 
-function getPosterPhysicalDimensionsInCm(sizeId) {
+function resolveOrientation(dimensions, orientation) {
+  if (orientation === 'landscape') {
+    return _.merge({}, dimensions, {
+      width: dimensions.height,
+      height: dimensions.width,
+    });
+  }
+
+  return dimensions;
+}
+
+function getPosterPhysicalDimensionsInCm(sizeId, orientation) {
   const size = getPosterSize(sizeId);
   const width = size.physicalDimensions.width;
   const height = size.physicalDimensions.height;
 
   if (size.type === 'cm') {
-    return {
+    return resolveOrientation({
       width,
       height,
-    };
+    }, orientation);
   }
 
-  return {
+  return resolveOrientation({
     width: width * INCH_IN_CM,
     height: height * INCH_IN_CM,
-  };
+  }, orientation);
+}
+
+function getPosterPhysicalDimensions(sizeId, orientation) {
+  const dimensions = getPosterSize(sizeId).physicalDimensions;
+  return resolveOrientation(dimensions, orientation);
 }
 
 function findClosestSizeForOtherSizeType(currentSizeId, newSizeType) {
@@ -63,10 +79,11 @@ function findClosestSizeForOtherSizeType(currentSizeId, newSizeType) {
     return currentSize;
   }
 
-  const currentDimensions = getPosterPhysicalDimensionsInCm(currentSizeId);
+  // The default dimensions are in portrait mode
+  const currentDimensions = getPosterPhysicalDimensionsInCm(currentSizeId, 'portrait');
   const relevantPosterSizes = _.filter(enums.POSTER_SIZES, size => size.type === newSizeType);
   const closest = _.minBy(relevantPosterSizes, (size) => {
-    const comparisonDimensions = getPosterPhysicalDimensionsInCm(size.id);
+    const comparisonDimensions = getPosterPhysicalDimensionsInCm(size.id, 'portrait');
     const widthDiff = Math.abs(comparisonDimensions.width - currentDimensions.width);
     const heightDiff = Math.abs(comparisonDimensions.height - currentDimensions.height);
     return widthDiff + heightDiff;
@@ -357,6 +374,7 @@ module.exports = {
   getPosterStyle,
   getPosterSizeType,
   getPosterSize,
+  getPosterPhysicalDimensions,
   getPosterPhysicalDimensionsInCm,
   findClosestSizeForOtherSizeType,
   createProductId,

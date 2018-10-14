@@ -96,6 +96,29 @@ describe('POSTER_SIZES', () => {
     assert.strictEqual(common.POSTER_SIZE_TYPES.length, 2);
   });
 
+  it('getPosterPhysicalDimensions should return correct', () => {
+    const dimensions = common.getPosterPhysicalDimensions('30x40cm', 'portrait');
+    assert.deepStrictEqual(dimensions, {
+      width: 30,
+      height: 40,
+      unit: 'cm',
+    });
+
+    const dimensions2 = common.getPosterPhysicalDimensions('30x40cm', 'landscape');
+    assert.deepStrictEqual(dimensions2, {
+      width: 40,
+      height: 30,
+      unit: 'cm',
+    });
+
+    const dimensions3 = common.getPosterPhysicalDimensions('24x36inch', 'landscape');
+    assert.deepStrictEqual(dimensions3, {
+      width: 36,
+      height: 24,
+      unit: 'inch',
+    });
+  });
+
   it('getPosterSizeType should return correct size type', () => {
     const size = common.getPosterSizeType('inch');
     assert.deepStrictEqual(size, {
