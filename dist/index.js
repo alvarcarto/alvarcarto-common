@@ -382,6 +382,7 @@ module.exports = {
   getPosterStyle: getPosterStyle,
   getPosterSizeType: getPosterSizeType,
   getPosterSize: getPosterSize,
+  resolveOrientation: resolveOrientation,
   getPosterPhysicalDimensions: getPosterPhysicalDimensions,
   getPosterPhysicalDimensionsInCm: getPosterPhysicalDimensionsInCm,
   findClosestSizeForOtherSizeType: findClosestSizeForOtherSizeType,
