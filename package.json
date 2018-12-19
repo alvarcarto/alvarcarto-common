@@ -1,6 +1,6 @@
 {
   "name": "alvarcarto-common",
-  "version": "4.8.2",
+  "version": "5.0.0",
   "description": "Alvar Carto common utility functions",
   "main": "dist/index.js",
   "repository": {
