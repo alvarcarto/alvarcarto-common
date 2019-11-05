@@ -28,7 +28,8 @@ function getPosterSizeType(id) {
 function getMapStyle(id) {
   var found = _.find(styles.MAP_STYLES, { id: id });
   if (!found) {
-    return _.find(styles.MAP_STYLES, { id: 'default' });
+    var style = _.find(styles.MAP_STYLES, { id: 'default' });
+    return _.merge({}, style, { id: id });
   }
 
   return found;

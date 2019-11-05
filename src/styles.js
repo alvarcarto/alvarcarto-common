@@ -121,11 +121,10 @@ const POSTER_STYLES = [
 const MAP_STYLES = [
   {
     id: 'default',
-    // Awful red to make it clear the default is being used
-    color: '#FF0000',
+    color: '#000000',
     labelColor: '#000000',
     type: 'raster',
-    name: 'Default (for internal use)',
+    name: 'Default black (for internal use)',
   },
   {
     id: 'bw',

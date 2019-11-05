@@ -79,11 +79,11 @@ describe('MAP_STYLES', () => {
   it('getMapStyle() should return default', () => {
     const style = common.getMapStyle('not-existing');
     assert.deepStrictEqual(style, {
-      id: 'default',
-      color: '#FF0000',
+      id: 'not-existing',
+      color: '#000000',
       labelColor: '#000000',
       type: 'raster',
-      name: 'Default (for internal use)',
+      name: 'Default black (for internal use)',
     });
   });
 });
