@@ -55,7 +55,7 @@ describe('POSTER_STYLES', () => {
       id: 'sharp',
       upperCaseLabels: true,
       allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
-      allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood'],
+      allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
       labels: ['header'],
       name: 'Sharp',
     });
@@ -66,8 +66,8 @@ describe('POSTER_STYLES', () => {
     assert.deepStrictEqual(style, {
       id: 'sharp',
       upperCaseLabels: true,
-      allowedMapStyles: ['bw', 'gray', 'black-plywood'],
-      allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood'],
+      allowedMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
+      allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
       labels: ['header'],
       name: 'Sharp',
     });
