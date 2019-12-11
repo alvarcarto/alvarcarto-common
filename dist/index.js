@@ -9,6 +9,43 @@ var TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 var TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
 var INCH_IN_CM = 2.54;
 
+function getMaterial(id) {
+  var found = _.find(styles.POSTER_MATERIALS, { id: id });
+  if (!found) {
+    throw new Error('No such poster material: ' + id);
+  }
+  return found;
+}
+
+function getMaterials() {
+  return styles.POSTER_MATERIALS;
+}
+
+function getMapStyles() {
+  return styles.MAP_STYLES;
+}
+
+function getPosterSizes(materialId) {
+  var material = getMaterial(materialId);
+  return _.filter(enums.POSTER_SIZES, function (size) {
+    return _.includes(material.allowedPosterSizes, size.id);
+  });
+}
+
+function getPosterStyles(materialId) {
+  var material = getMaterial(materialId);
+  var filtered = _.filter(styles.POSTER_STYLES, function (style) {
+    return _.includes(material.allowedPosterStyles, style.id);
+  });
+  return _.map(filtered, function (s) {
+    if (materialId === 'plywood') {
+      return _.extend({}, s, { allowedMapStyles: s.allowedPlywoodMapStyles });
+    }
+
+    return s;
+  });
+}
+
 function getPosterSize(id) {
   var found = _.find(enums.POSTER_SIZES, { id: id });
   if (!found) {
@@ -35,8 +72,8 @@ function getMapStyle(id) {
   return found;
 }
 
-function getPosterStyle(id) {
-  var found = _.find(styles.POSTER_STYLES, { id: id });
+function getPosterStyle(id, materialId) {
+  var found = _.find(getPosterStyles(materialId), { id: id });
   if (!found) {
     throw new Error('No such poster style: ' + id);
   }
@@ -316,7 +353,7 @@ var HEADER_MAPPING = {
 };
 
 function changeDynamicAttributes(el, mapItem) {
-  var posterLook = getPosterStyle(mapItem.posterStyle);
+  var posterLook = getPosterStyle(mapItem.posterStyle, mapItem.material);
 
   var labelRule = _.find(posterLook.labelRules, function (rule) {
     var mapItemAttr = HEADER_MAPPING[rule.label];
@@ -381,15 +418,21 @@ module.exports = {
   posterSizeToMiddleLineStrokeWidth: posterSizeToMiddleLineStrokeWidth,
   changeDynamicAttributes: changeDynamicAttributes,
   getMapStyle: getMapStyle,
+  getMapStyles: getMapStyles,
+  getMaterial: getMaterial,
+  getMaterials: getMaterials,
   getPosterStyle: getPosterStyle,
+  getPosterStyles: getPosterStyles,
   getPosterSizeType: getPosterSizeType,
   getPosterSize: getPosterSize,
+  getPosterSizes: getPosterSizes,
   resolveOrientation: resolveOrientation,
   getPosterPhysicalDimensions: getPosterPhysicalDimensions,
   getPosterPhysicalDimensionsInCm: getPosterPhysicalDimensionsInCm,
   findClosestSizeForOtherSizeType: findClosestSizeForOtherSizeType,
   createProductId: createProductId,
   MAP_STYLES: styles.MAP_STYLES,
+  POSTER_MATERIALS: styles.POSTER_MATERIALS,
   POSTER_STYLES: styles.POSTER_STYLES,
   POSTER_SIZES: enums.POSTER_SIZES,
   POSTER_SIZE_TYPES: enums.POSTER_SIZE_TYPES,

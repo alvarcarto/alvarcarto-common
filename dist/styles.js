@@ -1,13 +1,28 @@
 'use strict';
 
+var POSTER_MATERIALS = [{
+  id: 'paper',
+  name: 'Matt print paper, 180 g/m²',
+  allowedPosterStyles: ['sharp', 'classic', 'sans', 'bw'],
+  allowedPosterSizes: ['30x40cm', '50x70cm', '70x100cm', '12x18inch', '18x24inch', '24x36inch']
+}, {
+  id: 'plywood',
+  name: 'Plywood, 6mm thick',
+  allowedPosterStyles: ['sharp', 'classic', 'sans', 'bw'],
+  allowedPosterSizes: ['30x40cm', '50x70cm', '12x18inch', '18x24inch']
+}];
+
 var POSTER_STYLES = [{
   id: 'sharp',
   upperCaseLabels: true,
+  allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
+  allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood'],
   labels: ['header'],
   name: 'Sharp'
 }, {
   id: 'classic',
   allowedMapStyles: ['bw', 'gray'],
+  allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: true,
   labels: ['header', 'smallHeader', 'text'],
   addLines: true,
@@ -45,6 +60,7 @@ var POSTER_STYLES = [{
 }, {
   id: 'sans',
   allowedMapStyles: ['bw', 'gray'],
+  allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: true,
   labels: ['header', 'smallHeader', 'text'],
   addLines: true,
@@ -81,22 +97,29 @@ var POSTER_STYLES = [{
   name: 'Sans'
 }, {
   id: 'bw',
-  allowedMapStyles: ['bw', 'gray', 'black', 'sunset'],
+  allowedMapStyles: ['bw', 'gray', 'black'],
+  allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood'],
   upperCaseLabels: true,
   labels: ['header', 'smallHeader', 'text'],
   name: 'Modern'
 }, {
   id: 'pacific',
+  allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
+  allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: false,
   labels: ['header'],
   name: 'Pacific'
 }, {
   id: 'summer',
+  allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
+  allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: true,
   labels: ['header'],
   name: 'Summer'
 }, {
   id: 'round',
+  allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
+  allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: true,
   labels: ['header'],
   name: 'Round'
@@ -122,6 +145,12 @@ var MAP_STYLES = [{
   name: 'Gray'
 }, {
   id: 'black',
+  color: '#000000',
+  labelColor: '#000000',
+  type: 'raster',
+  name: 'Black'
+}, {
+  id: 'black-plywood',
   color: '#000000',
   labelColor: '#000000',
   type: 'raster',
@@ -165,6 +194,7 @@ var MAP_STYLES = [{
 }];
 
 module.exports = {
+  POSTER_MATERIALS: POSTER_MATERIALS,
   POSTER_STYLES: POSTER_STYLES,
   MAP_STYLES: MAP_STYLES
 };
