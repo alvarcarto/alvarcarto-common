@@ -16,7 +16,7 @@ var POSTER_STYLES = [{
   id: 'sharp',
   upperCaseLabels: true,
   allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
-  allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood'],
+  allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
   labels: ['header'],
   name: 'Sharp'
 }, {
@@ -98,7 +98,7 @@ var POSTER_STYLES = [{
 }, {
   id: 'bw',
   allowedMapStyles: ['bw', 'gray', 'black'],
-  allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood'],
+  allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
   upperCaseLabels: true,
   labels: ['header', 'smallHeader', 'text'],
   name: 'Modern'
