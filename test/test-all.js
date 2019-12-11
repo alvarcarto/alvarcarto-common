@@ -50,10 +50,24 @@ describe('POSTER_STYLES', () => {
   });
 
   it('getPosterStyle()', () => {
-    const style = common.getPosterStyle('sharp');
+    const style = common.getPosterStyle('sharp', 'paper');
     assert.deepStrictEqual(style, {
       id: 'sharp',
       upperCaseLabels: true,
+      allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
+      allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood'],
+      labels: ['header'],
+      name: 'Sharp',
+    });
+  });
+
+  it('getPosterStyle()', () => {
+    const style = common.getPosterStyle('sharp', 'plywood');
+    assert.deepStrictEqual(style, {
+      id: 'sharp',
+      upperCaseLabels: true,
+      allowedMapStyles: ['bw', 'gray', 'black-plywood'],
+      allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood'],
       labels: ['header'],
       name: 'Sharp',
     });
@@ -61,10 +75,6 @@ describe('POSTER_STYLES', () => {
 });
 
 describe('MAP_STYLES', () => {
-  it('has 10 map styles', () => {
-    assert.strictEqual(common.MAP_STYLES.length, 10);
-  });
-
   it('getMapStyle()', () => {
     const style = common.getMapStyle('madang');
     assert.deepStrictEqual(style, {

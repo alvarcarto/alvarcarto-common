@@ -7,6 +7,42 @@ const TRANSLATE_X_REGEX = /\.*translateX\((.*)\)/i;
 const TRANSLATE_Y_REGEX = /\.*translateY\((.*)\)/i;
 const INCH_IN_CM = 2.54;
 
+function getMaterial(id) {
+  const found = _.find(styles.POSTER_MATERIALS, { id });
+  if (!found) {
+    throw new Error(`No such poster material: ${id}`);
+  }
+  return found;
+}
+
+function getMaterials() {
+  return styles.POSTER_MATERIALS;
+}
+
+function getMapStyles() {
+  return styles.MAP_STYLES;
+}
+
+function getPosterSizes(materialId) {
+  const material = getMaterial(materialId);
+  return _.filter(enums.POSTER_SIZES, size => _.includes(material.allowedPosterSizes, size.id));
+}
+
+function getPosterStyles(materialId) {
+  const material = getMaterial(materialId);
+  const filtered = _.filter(
+    styles.POSTER_STYLES,
+    style => _.includes(material.allowedPosterStyles, style.id)
+  );
+  return _.map(filtered, (s) => {
+    if (materialId === 'plywood') {
+      return _.extend({}, s, { allowedMapStyles: s.allowedPlywoodMapStyles });
+    }
+
+    return s;
+  });
+}
+
 function getPosterSize(id) {
   const found = _.find(enums.POSTER_SIZES, { id });
   if (!found) {
@@ -33,8 +69,8 @@ function getMapStyle(id) {
   return found;
 }
 
-function getPosterStyle(id) {
-  const found = _.find(styles.POSTER_STYLES, { id });
+function getPosterStyle(id, materialId) {
+  const found = _.find(getPosterStyles(materialId), { id });
   if (!found) {
     throw new Error(`No such poster style: ${id}`);
   }
@@ -302,7 +338,7 @@ const HEADER_MAPPING = {
 };
 
 function changeDynamicAttributes(el, mapItem) {
-  const posterLook = getPosterStyle(mapItem.posterStyle);
+  const posterLook = getPosterStyle(mapItem.posterStyle, mapItem.material);
 
   const labelRule = _.find(posterLook.labelRules, (rule) => {
     const mapItemAttr = HEADER_MAPPING[rule.label];
@@ -373,15 +409,21 @@ module.exports = {
   posterSizeToMiddleLineStrokeWidth,
   changeDynamicAttributes,
   getMapStyle,
+  getMapStyles,
+  getMaterial,
+  getMaterials,
   getPosterStyle,
+  getPosterStyles,
   getPosterSizeType,
   getPosterSize,
+  getPosterSizes,
   resolveOrientation,
   getPosterPhysicalDimensions,
   getPosterPhysicalDimensionsInCm,
   findClosestSizeForOtherSizeType,
   createProductId,
   MAP_STYLES: styles.MAP_STYLES,
+  POSTER_MATERIALS: styles.POSTER_MATERIALS,
   POSTER_STYLES: styles.POSTER_STYLES,
   POSTER_SIZES: enums.POSTER_SIZES,
   POSTER_SIZE_TYPES: enums.POSTER_SIZE_TYPES,
