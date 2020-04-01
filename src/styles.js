@@ -227,7 +227,7 @@ const MAP_STYLES = [
     color: '#FFFFFF',
     labelColor: '#000000',
     type: 'raster',
-    name: 'New White',
+    name: 'White on white',
   },
   {
     id: 'contrast-black',
