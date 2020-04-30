@@ -54,7 +54,7 @@ describe('POSTER_STYLES', () => {
     assert.deepStrictEqual(style, {
       id: 'sharp',
       upperCaseLabels: true,
-      allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+      allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
       allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
       labels: ['header'],
       name: 'Sharp',

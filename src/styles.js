@@ -17,14 +17,14 @@ const POSTER_STYLES = [
   {
     id: 'sharp',
     upperCaseLabels: true,
-    allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+    allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
     allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
     labels: ['header'],
     name: 'Sharp',
   },
   {
     id: 'classic',
-    allowedMapStyles: ['bw', 'gray', 'pure-white'],
+    allowedMapStyles: ['bw', 'gray'],
     allowedPlywoodMapStyles: ['bw', 'gray'],
     upperCaseLabels: true,
     labels: ['header', 'smallHeader', 'text'],
@@ -68,7 +68,7 @@ const POSTER_STYLES = [
   },
   {
     id: 'sans',
-    allowedMapStyles: ['bw', 'gray', 'pure-white'],
+    allowedMapStyles: ['bw', 'gray'],
     allowedPlywoodMapStyles: ['bw', 'gray'],
     upperCaseLabels: true,
     labels: ['header', 'smallHeader', 'text'],
@@ -112,7 +112,7 @@ const POSTER_STYLES = [
   },
   {
     id: 'bw',
-    allowedMapStyles: ['bw', 'gray', 'black', 'pure-white'],
+    allowedMapStyles: ['bw', 'gray', 'black'],
     allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
     upperCaseLabels: true,
     labels: ['header', 'smallHeader', 'text'],
@@ -120,7 +120,7 @@ const POSTER_STYLES = [
   },
   {
     id: 'pacific',
-    allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+    allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
     allowedPlywoodMapStyles: ['bw', 'gray'],
     upperCaseLabels: false,
     labels: ['header'],
@@ -128,7 +128,7 @@ const POSTER_STYLES = [
   },
   {
     id: 'summer',
-    allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+    allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
     allowedPlywoodMapStyles: ['bw', 'gray'],
     upperCaseLabels: true,
     labels: ['header'],
@@ -136,7 +136,7 @@ const POSTER_STYLES = [
   },
   {
     id: 'round',
-    allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+    allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
     allowedPlywoodMapStyles: ['bw', 'gray'],
     upperCaseLabels: true,
     labels: ['header'],
