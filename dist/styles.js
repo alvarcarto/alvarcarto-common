@@ -15,13 +15,13 @@ var POSTER_MATERIALS = [{
 var POSTER_STYLES = [{
   id: 'sharp',
   upperCaseLabels: true,
-  allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+  allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
   allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
   labels: ['header'],
   name: 'Sharp'
 }, {
   id: 'classic',
-  allowedMapStyles: ['bw', 'gray', 'pure-white'],
+  allowedMapStyles: ['bw', 'gray'],
   allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: true,
   labels: ['header', 'smallHeader', 'text'],
@@ -59,7 +59,7 @@ var POSTER_STYLES = [{
   name: 'Classic'
 }, {
   id: 'sans',
-  allowedMapStyles: ['bw', 'gray', 'pure-white'],
+  allowedMapStyles: ['bw', 'gray'],
   allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: true,
   labels: ['header', 'smallHeader', 'text'],
@@ -97,28 +97,28 @@ var POSTER_STYLES = [{
   name: 'Sans'
 }, {
   id: 'bw',
-  allowedMapStyles: ['bw', 'gray', 'black', 'pure-white'],
+  allowedMapStyles: ['bw', 'gray', 'black'],
   allowedPlywoodMapStyles: ['bw', 'gray', 'black-plywood-transparent'],
   upperCaseLabels: true,
   labels: ['header', 'smallHeader', 'text'],
   name: 'Modern'
 }, {
   id: 'pacific',
-  allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+  allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
   allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: false,
   labels: ['header'],
   name: 'Pacific'
 }, {
   id: 'summer',
-  allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+  allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
   allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: true,
   labels: ['header'],
   name: 'Summer'
 }, {
   id: 'round',
-  allowedMapStyles: ['bw', 'gray', 'black', 'petrol', 'pure-white'],
+  allowedMapStyles: ['bw', 'gray', 'black', 'petrol'],
   allowedPlywoodMapStyles: ['bw', 'gray'],
   upperCaseLabels: true,
   labels: ['header'],
